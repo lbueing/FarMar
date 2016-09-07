@@ -16,7 +16,10 @@ class FarMar::Market < FarMar::AllInfo
 
 
   def self.all
-    super
+    @market_info = []
+    CSV.open("support/markets.csv", "r").each do |line|
+        @market_info << FarMar::Market.new(id: line[0], name: line[1], address: line[2], city: line[3], country: line[4], state: line[5], zip: line[6])
+      end
     return @market_info
   end
 

@@ -7,7 +7,10 @@ class FarMar::Vendor < FarMar::AllInfo
   end
 
   def self.all
-    super
+    @vendor_info = []
+    CSV.open("support/vendors.csv", "r").each do |line|
+        @vendor_info << FarMar::Vendor.new(id: line[0], name: line[1], num_employees: line[2], market_id: line[3])
+    end
     return @vendor_info
   end
 
