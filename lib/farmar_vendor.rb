@@ -1,9 +1,14 @@
 # lib/farmar_market.rb
-class FarMar::Vendor < FarMar::AllInfo
+
+class FarMar::Vendor #< FarMar::AllInfo
 
   attr_accessor :id, :name, :num_employees, :market_id
   def initialize(hash_parameter)
-    super
+    # super
+    @id = hash_parameter[:id] #fixnum
+    @name = hash_parameter[:name] #string
+    @num_employees = hash_parameter[:num_employees] #fixnum
+    @market_id = hash_parameter[:market_id] #fixnum
   end
 
   def self.all
@@ -21,6 +26,22 @@ class FarMar::Vendor < FarMar::AllInfo
         return i
       end
     end
+  end
+
+  def self.by_market(market_id)
+    all
+    markets = []
+    @vendor_info.each do |i|
+      if i.market_id.to_i == market_id
+        markets << i
+      end
+    end
+    return markets
+  end
+
+  def market
+    market_name = FarMar::Market.find(self.market_id.to_i).name
+    return market_name
   end
 
 end
