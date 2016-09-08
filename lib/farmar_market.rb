@@ -1,17 +1,17 @@
 # lib/farmar_market.rb
-class FarMar::Market < FarMar::AllInfo
+class FarMar::Market #< FarMar::AllInfo
 
 
-  # attr_accessor :id, :name, :address, :city, :county, :state, :zip
+  attr_accessor :id, :name, :address, :city, :county, :state, :zip
   def initialize(hash_parameter)
-    super
-    # @id = hash_parameter[:id] #fixnum
-    # @name = hash_parameter[:name] #string
-    # @address = hash_parameter[:address]
-    # @city = hash_parameter[:city]
-    # @county = hash_parameter[:county]
-    # @state = hash_parameter[:state]
-    # @zip = hash_parameter[:zip]
+    # super
+    @id = hash_parameter[:id] #fixnum
+    @name = hash_parameter[:name] #string
+    @address = hash_parameter[:address]
+    @city = hash_parameter[:city]
+    @county = hash_parameter[:county]
+    @state = hash_parameter[:state]
+    @zip = hash_parameter[:zip]
   end
 
 
@@ -30,6 +30,23 @@ class FarMar::Market < FarMar::AllInfo
         return i
       end
     end
+  end
+
+  def vendors
+    # FarMar::Market.all
+    #WHY 17?!?!?!?!?!?!?!?!?!?!
+    vendor_list = FarMar::Vendor.by_market(self.id.to_i)
+    return vendor_list
+    # market_info = FarMar::Market.all
+    # counter = 1
+    # vendors_by_market = Hash.new
+    # market_info.each do |i|
+    #   if i.id.to_i == counter
+    #     vendors_by_market["#{counter}"] = FarMar::Vendor.by_market(counter)
+    #   end
+    #   counter += 1
+    # end
+    # return vendors_by_market
   end
 
   # def self.find(id)
