@@ -24,7 +24,7 @@ class FarMar::Sale  #< FarMar::AllInfo
   def self.find(id)
     all
     @sale_info.each do |i|
-      if i.id.to_i == id
+      if i.id == id
         return i
       end
     end

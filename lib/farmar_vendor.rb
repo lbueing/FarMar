@@ -45,7 +45,7 @@ class FarMar::Vendor #< FarMar::AllInfo
   end
 
   def products
-    product_list = FarMar::Product.by_vendor(self.id.to_i)
+    product_list = FarMar::Product.by_vendor(self.id)
     return product_list
   end
 

@@ -20,7 +20,7 @@ class FarMar::Product #< FarMar::AllInfo
   def self.find(id)
     all
     @product_info.each do |i|
-      if i.id.to_i == id
+      if i.id == id
         return i
       end
     end
@@ -35,7 +35,7 @@ class FarMar::Product #< FarMar::AllInfo
     all
     vendors = []
     @product_info.each do |i|
-      if i.vendor_id.to_i == vendor_id
+      if i.vendor_id == vendor_id
         vendors << i
       end
     end
@@ -45,7 +45,7 @@ class FarMar::Product #< FarMar::AllInfo
   def sales
     sales = []
     FarMar::Sale.all.each do |i|
-      if i.product_id.to_i == self.id
+      if i.product_id == self.id
         sales << i
       end
     end
@@ -55,7 +55,7 @@ class FarMar::Product #< FarMar::AllInfo
   def number_of_sales
     counter = 0
     FarMar::Sale.all.each do |i|
-      if i.product_id.to_i == self.id
+      if i.product_id == self.id
         counter += 1
       end
     end
