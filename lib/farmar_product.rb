@@ -42,6 +42,7 @@ class FarMar::Product #< FarMar::AllInfo
     return vendors
   end
 
+#need to call self.find() first
   def sales
     sales = []
     FarMar::Sale.all.each do |i|
@@ -52,14 +53,17 @@ class FarMar::Product #< FarMar::AllInfo
     return sales
   end
 
+
+#need to call self.find() and sales first --
   def number_of_sales
-    counter = 0
-    FarMar::Sale.all.each do |i|
-      if i.product_id == self.id
-        counter += 1
-      end
-    end
-    return counter
+    return sales.length
+    # counter = 0
+    # FarMar::Sale.all.each do |i|
+    #   if i.product_id == self.id
+    #     counter += 1
+    #   end
+    # end
+    # return counter
   end
 
 end

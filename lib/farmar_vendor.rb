@@ -32,7 +32,7 @@ class FarMar::Vendor #< FarMar::AllInfo
     all
     markets = []
     @vendor_info.each do |i|
-      if i.market_id.to_i == market_id
+      if i.market_id == market_id
         markets << i
       end
     end
@@ -52,7 +52,7 @@ class FarMar::Vendor #< FarMar::AllInfo
   def sales
     @sales = []
     FarMar::Sale.all.each do |i|
-      if i.vendor_id.to_i == self.id
+      if i.vendor_id == self.id
         @sales << i
       end
     end
@@ -63,9 +63,11 @@ class FarMar::Vendor #< FarMar::AllInfo
     sales
     rev = 0
     @sales.each do |i|
-      rev += i.amount/100.0
+      rev += i.amount
     end
     return rev
   end
+
+  #create cents to dollars?! Why no dollars? :(
 
 end
