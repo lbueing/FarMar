@@ -19,6 +19,16 @@ describe FarMar do
     expect( shrek.vendors.length ).must_equal(9)
   end
 
+  it 'Check word searching functionality' do
+    expect( FarMar::Market.search("Inc").length ).must_equal(277)
+    expect( FarMar::Market.search("Sons").length ).must_equal(220)
+    expect( FarMar::Market.search("Summer").length ).must_equal(1)
+  end
+
+  it 'Check for products associated with market' do
+    expect( shrek.products.length ).must_equal(33)
+  end
+
 ################################VENDOR
 
   let(:fiona) { FarMar::Vendor.find(663) }
