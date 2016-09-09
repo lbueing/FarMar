@@ -26,32 +26,55 @@ class FarMar::Market #< FarMar::AllInfo
   def self.find(id)
     all
     @market_info.each do |i|
-      if i.id.to_i == id
+      if i.id == id
         return i
       end
     end
   end
 
   def vendors
-    # FarMar::Market.all
-    #WHY 17?!?!?!?!?!?!?!?!?!?!
-    vendor_list = FarMar::Vendor.by_market(self.id.to_i)
+    vendor_list = FarMar::Vendor.by_market(self.id)
     return vendor_list
-    # market_info = FarMar::Market.all
-    # counter = 1
-    # vendors_by_market = Hash.new
-    # market_info.each do |i|
-    #   if i.id.to_i == counter
-    #     vendors_by_market["#{counter}"] = FarMar::Vendor.by_market(counter)
-    #   end
-    #   counter += 1
-    # end
-    # return vendors_by_market
   end
 
-  # def self.find(id)
-  #   #returns an instance of the object where the value of the id field in the CSV matches the passed parameter.
-  # end
+  #optional
+  def self.search(word)
+    all
+    word_instances = []
+    @market_info.each do |i|
+      if i.name.include?(word)
+        word_instances << i
+      end
+    end
+    FarMar::Vendor.all.each do |i|
+      if i.name.include?(word)
+        word_instances << self.find(i.market_id)
+      end
+    end
+    return word_instances
+  end
 
+  def products
+    product_list = []
+    FarMar::Vendor.by_market(self.id).each do |i|
+      product_list << FarMar::Product.by_vendor(i.id)
+    end
+  return product_list.flatten
+  end
 
 end
+
+
+# Below returns a master list of vendors for each market:
+# # def vendors
+  # # market_info = FarMar::Market.all
+  # # counter = 1
+  # # vendors_by_market = Hash.new
+  # # market_info.each do |i|
+  # #   if i.id.to_i == counter
+  # #     vendors_by_market["#{counter}"] = FarMar::Vendor.by_market(counter)
+  # #   end
+  # #   counter += 1
+  # # end
+  # # return vendors_by_market
+# #end
