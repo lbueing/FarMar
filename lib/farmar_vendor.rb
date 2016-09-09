@@ -14,7 +14,7 @@ class FarMar::Vendor #< FarMar::AllInfo
   def self.all
     @vendor_info = []
     CSV.open("support/vendors.csv", "r").each do |line|
-        @vendor_info << FarMar::Vendor.new(id: line[0], name: line[1], num_employees: line[2], market_id: line[3])
+        @vendor_info << FarMar::Vendor.new(id: line[0].to_i, name: line[1], num_employees: line[2].to_i, market_id: line[3].to_i)
     end
     return @vendor_info
   end
@@ -40,8 +40,32 @@ class FarMar::Vendor #< FarMar::AllInfo
   end
 
   def market
-    market_name = FarMar::Market.find(self.market_id.to_i).name
+    market_name = FarMar::Market.find(self.market_id).name
     return market_name
+  end
+
+  def products
+    product_list = FarMar::Product.by_vendor(self.id.to_i)
+    return product_list
+  end
+
+  def sales
+    @sales = []
+    FarMar::Sale.all.each do |i|
+      if i.vendor_id.to_i == self.id
+        @sales << i
+      end
+    end
+    return @sales
+  end
+
+  def revenue
+    sales
+    rev = 0
+    @sales.each do |i|
+      rev += i.amount/100.0
+    end
+    return rev
   end
 
 end
